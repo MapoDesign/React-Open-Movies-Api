@@ -1,22 +1,39 @@
-import logo from './logo.svg';
+
+import { useEffect, useState } from 'react';
 import './App.css';
+const APIKEY = '4cb9def9';
+const APIURL = 'https://www.omdbapi.com/';
+
+const fetchMovies = async (search='The godfather') => {
+  const response = await fetch(APIURL + '?apikey=' + APIKEY + '&s=' + search)
+  .then(res => res.json());
+  const {Search:movies,totalResults:totalCount} = response;
+  console.log(response);
+  return{movies, totalCount}
+}
 
 function App() {
+  const [movies,setMovies] = useState([]);
+  const [totalCount,setTotalCount] = useState(0);
+
+  useEffect(()=>{
+    const callApi = async () => {
+      const data = await fetchMovies();
+      setMovies(data.movies);
+      setTotalCount(data.totalCount);
+    }
+    callApi();
+    return() => {
+    }
+  })
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Open Movies Database</h1>
+        <ul>
+          {movies.map(movie => <li key={movie.imdbID}>{movie.Title}</li>)}
+        </ul>
       </header>
     </div>
   );
