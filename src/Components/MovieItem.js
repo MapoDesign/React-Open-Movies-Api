@@ -4,7 +4,7 @@ const MovieItem = ({movie}) => {
             <img src={movie.Poster} className="card-img-top" alt={movie.Title} />
             <div className="card-body">
                 <h5 className="card-title">{movie.Title}</h5>
-                <a href={'movies/' + movie.imdbID} className="btn btn-primary">View datail</a>
+                <a href={'/movies/' + movie.imdbID} className="btn btn-primary">View datail</a>
             </div>
         </div>
     );
