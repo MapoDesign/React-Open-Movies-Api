@@ -22,6 +22,7 @@ function App() {
       const data = await fetchMovies();
       setMovies(data.movies);
       setTotalCount(data.totalCount);
+      console.log(totalCount)
     }
     callApi();
     return() => {
