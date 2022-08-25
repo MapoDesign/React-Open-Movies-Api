@@ -8,21 +8,18 @@ const APIURL = 'https://www.omdbapi.com/';
 const fetchMovies = async (search='The+godfather') => {
   const response = await fetch(APIURL + '?apikey=' + APIKEY + '&s=' + search)
   .then(res => res.json());
-  const {Search:movies,totalResults:totalCount} = response;
+  const {Search:movies} = response;
   console.log(response);
-  return{movies, totalCount}
+  return{movies}
 }
 
 function App() {
   const [movies,setMovies] = useState([]);
-  const [totalCount,setTotalCount] = useState(0);
 
   useEffect(()=>{
     const callApi = async () => {
       const data = await fetchMovies();
       setMovies(data.movies);
-      setTotalCount(data.totalCount);
-      console.log(totalCount)
     }
     callApi();
     return() => {
