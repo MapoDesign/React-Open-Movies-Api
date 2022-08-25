@@ -1,10 +1,11 @@
 
 import { useEffect, useState } from 'react';
 import './App.css';
+import MoviesList from './Components/MovieList';
 const APIKEY = '4cb9def9';
 const APIURL = 'https://www.omdbapi.com/';
 
-const fetchMovies = async (search='The godfather') => {
+const fetchMovies = async (search='The+godfather') => {
   const response = await fetch(APIURL + '?apikey=' + APIKEY + '&s=' + search)
   .then(res => res.json());
   const {Search:movies,totalResults:totalCount} = response;
@@ -25,15 +26,16 @@ function App() {
     callApi();
     return() => {
     }
-  })
+  },[]);
 
   return (
     <div className="App">
       <header className="App-header">
-        <h1>Open Movies Database</h1>
-        <ul>
-          {movies.map(movie => <li key={movie.imdbID}>{movie.Title}</li>)}
-        </ul>
+        <section className='container'>
+          <h1>Open Movies Database</h1>
+          <MoviesList movies={movies} />
+        </section>
+        
       </header>
     </div>
   );
