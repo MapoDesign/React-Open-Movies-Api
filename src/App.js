@@ -14,7 +14,7 @@ const fetchMovies = async (search='The+godfather') => {
   .then(res => res.json());
   const {Error, Search:movies, totalResult: totalCount} = response;
   
-  return{movies,totalCount,Error:Error ?? ''};
+  return { movies, totalCount, Error: Error ?? '' };
 }
 
 function App() {
@@ -24,14 +24,14 @@ function App() {
 
   const callApi = async (search='') => {
     const data = await fetchMovies(search);
-    console.log(data.Error);
+    console.log(data);
+    setError(data.Error);
     if (!data.Error.length) {
       setMovies(data.movies);
       setTotalCount(data.totalCount);
     } else {
       setTotalCount(0);
       setMovies([]);
-      setError(data.error)
     }
      
   }
@@ -48,13 +48,14 @@ function App() {
       <NavBar onSearchChange={callApi} />
       <header className="App-header">
         <section className='container'>
-          <h1>Open Movies Database {totalCount}</h1>
-          {
-            !error ? <MoviesList movies={movies} /> : <h2>{error}</h2>
-          }
+          <h1>Open Movies Database ({totalCount})</h1>
+          
         </section>
-        
+      {
+            !error ? <MoviesList movies={movies} /> : <h2>{error}</h2>
+      }  
       </header>
+      
     </div>
   );
 }

@@ -1,15 +1,20 @@
 import { useState } from "react";
 
 const SearchBar = ({ onSearchChange }) => {
-  const manageSearch = ({ target }) => {
-    const s = target.value.trim();
+    const [search, setSearch] = useState('');
+
+  const manageSearch = (e) => {
+    const s = e.target.value.trim();
     setSearch(s);
-    if (s.length > 3) {
-      onSearchChange(s);
-    }
+    
   };
 
-  const [search, setSearch] = useState("");
+  const searchMovie = (e) => {
+    e.preventDefault();
+    if (search.length > 3) {
+        onSearchChange(search)
+    }
+  }
 
   return (
     <form className="d-flex">
@@ -22,9 +27,8 @@ const SearchBar = ({ onSearchChange }) => {
         placeholder="Search"
         aria-label="Search"
       />
-      <button className="btn btn-outline-success" type="submit">
-        Search
-      </button>
+       <button  onClick = {searchMovie} className="btn btn-outline-success" type="submit">Search</button>
+         <button onClick ={()=> {setSearch('')}} className="btn btn-outline-info" type="reset">Reset</button>
     </form>
   );
 };
