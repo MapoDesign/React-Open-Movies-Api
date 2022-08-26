@@ -55,7 +55,7 @@ function App() {
             !error ? <MoviesList movies={movies} /> : <h2>{error}</h2>
       }  
       </header>
-      
+       
     </div>
   );
 }
