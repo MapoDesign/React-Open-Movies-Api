@@ -1,4 +1,4 @@
-const Modal = ({movie}) => {
+const Modal = ({movie, error}) => {
     return (
         <>
             {/* Modal */}
@@ -10,9 +10,8 @@ const Modal = ({movie}) => {
                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" />
                     </div>
                     <div className="modal-body">
-                    {
-                        movie?.Plot
-                    }
+                    {movie?.Plot}
+                    {error}
                     </div>
                     <div className="modal-footer">
                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>

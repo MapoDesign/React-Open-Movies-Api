@@ -29,6 +29,7 @@ function App() {
   const [movies,setMovies] = useState([]);
   const [totalCount,setTotalCount] = useState(0);
   const [error, setError] = useState('');
+  const [errorDetail, setErrorDetail] = useState('');
   const [selectedMovie, setSelectedMovie] = useState(null)
 
   const callApi = async (search='') => {
@@ -49,7 +50,12 @@ function App() {
 
   const selectMovie = async (movie) => {
     const newMovie = await fetchMoviesById(movie.imdbID);
-    setSelectedMovie(newMovie);
+    if (newMovie.Error) {
+      setErrorDetail(newMovie.Error);
+      setSelectedMovie(null)
+    } else {
+      setSelectedMovie(newMovie);
+    }
   }
 
   useEffect(()=>{
@@ -71,7 +77,7 @@ function App() {
             !error ? <MoviesList movies={movies} onSelectedMovie={selectMovie} /> : <h2>{error}</h2>
       }  
       </header>
-      <Modal movie={selectedMovie} />
+      <Modal error={errorDetail} movie={selectedMovie} />
        
     </div>
   );
